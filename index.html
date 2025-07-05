@@ -20,7 +20,7 @@
         /* Estilo para os cards de impacto e instituições */
         .card {
             background-color: #ffffff;
-            border-radius: 1.5rem; /* Cantos mais arredondados - AUMENTADO AQUI */
+            border-radius: 1.5rem; /* Cantos mais arredondados */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease-in-out; /* Transição suave para o efeito hover */
         }
@@ -162,6 +162,17 @@
                 border-bottom: none;
             }
         }
+
+        /* Estilo para tornar os cards mais quadrados em telas maiores */
+        @media (min-width: 1024px) { /* Corresponde ao breakpoint 'lg' do Tailwind */
+            .card {
+                aspect-ratio: 1 / 1; /* Define a proporção para 1:1 (quadrado) */
+                display: flex;
+                flex-direction: column;
+                justify-content: center; /* Centraliza o conteúdo verticalmente */
+                align-items: center; /* Centraliza o conteúdo horizontalmente */
+            }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -261,25 +272,25 @@
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Resultados que refletem vidas</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="card p-8 text-center">
-                    <div class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-blue-600 mb-4">41.000+</div>
+                    <div id="num-assistencia" class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-blue-600 mb-4" data-original="41.000+">0</div>
                     <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-700 mb-2">Pessoas Atendidas em Assistência Social</h3>
                     <p class="text-xs sm:text-sm md:text-base text-gray-500 break-words">Apenas nas áreas de assistência social, levando apoio e dignidade.</p>
                 </div>
 
                 <div class="card p-8 text-center">
-                    <div class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-green-600 mb-4">1.734</div>
+                    <div id="num-educacao" class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-green-600 mb-4" data-original="1.734">0</div>
                     <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-700 mb-2">Crianças na Educação Infantil</h3>
                     <p class="text-xs sm:text-sm md:text-base text-gray-500 break-words">Acolhidas em nossos programas de educação, promovendo o desenvolvimento.</p>
                 </div>
 
                 <div class="card p-8 text-center">
-                    <div class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-purple-600 mb-4">2.400+</div>
+                    <div id="num-beneficiarios" class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-purple-600 mb-4" data-original="2.400+">0</div>
                     <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-700 mb-2">Beneficiários em Programas</h3>
                     <p class="text-xs sm:text-sm md:text-base text-gray-500 break-words">Em programas de convivência, formação e profissionalização.</p>
                 </div>
 
                 <div class="card p-8 text-center">
-                    <div class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-pink-600 mb-4">R$ 54 Milhões</div>
+                    <div id="num-investidos" class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-pink-600 mb-4" data-original="R$ 54 Milhões">R$ 0</div>
                     <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-700 mb-2">Investidos em Serviços Gratuitos</h3>
                     <p class="text-xs sm:text-sm md:text-base text-gray-500 break-words">Recursos aplicados para a população mais vulnerável, garantindo acesso a serviços essenciais.</p>
                 </div>
@@ -433,9 +444,78 @@
             });
         });
 
-        // Inicia o carrossel quando a janela é carregada
+        // --- Lógica para animação dos números ---
+        const numbersToAnimate = [
+            { id: 'num-assistencia', prefix: '', suffix: '+' },
+            { id: 'num-educacao', prefix: '', suffix: '' },
+            { id: 'num-beneficiarios', prefix: '', suffix: '+' },
+            { id: 'num-investidos', prefix: 'R$ ', suffix: ' Milhões' }
+        ];
+
+        function animateNumber(element, targetValue, prefix = '', suffix = '') {
+            let start = 0;
+            const duration = 2000; // 2 segundos
+            const frameDuration = 1000 / 60; // 60 frames por segundo
+            const totalFrames = Math.round(duration / frameDuration);
+            let frame = 0;
+
+            const countUp = () => {
+                frame++;
+                const progress = frame / totalFrames;
+                const currentValue = Math.round(targetValue * progress);
+
+                if (element.id === 'num-investidos') {
+                    // Formata para milhões com ponto e vírgula
+                    const millions = (currentValue / 1000000).toFixed(0);
+                    element.innerText = `${prefix}${millions} ${suffix}`;
+                } else {
+                    // Formata números com ponto como separador de milhares
+                    element.innerText = `${prefix}${currentValue.toLocaleString('pt-BR')}${suffix}`;
+                }
+
+                if (frame < totalFrames) {
+                    requestAnimationFrame(countUp);
+                } else {
+                    // Garante que o valor final seja exatamente o target
+                    if (element.id === 'num-investidos') {
+                         element.innerText = `${prefix}${targetValue / 1000000} ${suffix}`;
+                    } else {
+                        element.innerText = `${prefix}${targetValue.toLocaleString('pt-BR')}${suffix}`;
+                    }
+                }
+            };
+            requestAnimationFrame(countUp);
+        }
+
+        const impactSection = document.getElementById('impacto-numeros');
+        let animated = false; // Flag para garantir que a animação ocorra apenas uma vez
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !animated) {
+                    numbersToAnimate.forEach(item => {
+                        const element = document.getElementById(item.id);
+                        if (element) {
+                            // Remove caracteres não numéricos para obter o valor alvo
+                            let targetValue = element.dataset.original.replace(/[R$\s\+.]/g, '').replace(',', '.');
+                            if (item.id === 'num-investidos') {
+                                targetValue = parseFloat(targetValue) * 1000000; // Converte "54" para 54000000
+                            } else {
+                                targetValue = parseInt(targetValue, 10);
+                            }
+                            animateNumber(element, targetValue, item.prefix, item.suffix);
+                        }
+                    });
+                    animated = true; // Marca como animado
+                    observer.disconnect(); // Desconecta o observador após a animação
+                }
+            });
+        }, { threshold: 0.5 }); // A animação dispara quando 50% da seção está visível
+
+        // Inicia o carrossel e observa a seção de impacto quando a janela é carregada
         window.onload = function() {
             showSlides();
+            observer.observe(impactSection);
         };
     </script>
 </body>
