@@ -7,45 +7,48 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Estilos globais para o corpo do documento */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa; /* Light gray background */
-            color: #343a40; /* Dark gray text */
+            background-color: #f8f9fa; /* Fundo cinza claro */
+            color: #343a40; /* Texto cinza escuro */
         }
+        /* Estilo para o cabeçalho */
         .header-bg {
-            background-color: #0ABAB5; /* Tiffany Blue header */
-            /* Removed gradient to keep it solid Tiffany Blue */
+            background-color: #0ABAB5; /* Cor Tiffany Blue para o cabeçalho */
         }
+        /* Estilo para os cards de impacto e instituições */
         .card {
             background-color: #ffffff;
-            border-radius: 1rem; /* More rounded corners */
+            border-radius: 1rem; /* Cantos mais arredondados */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out; /* Transição suave para o efeito hover */
         }
         .card:hover {
-            transform: translateY(-15px);
+            transform: translateY(-15px); /* Efeito de levantar no hover */
         }
+        /* Estilo para o rodapé */
         .footer-bg {
-            background-color: #343a40; /* Dark footer */
+            background-color: #343a40; /* Rodapé escuro */
         }
-        /* Carousel specific styles */
+        /* Estilos específicos do carrossel */
         .carousel-container {
             position: relative;
-            max-width: 900px; /* Max width for the carousel */
+            max-width: 900px; /* Largura máxima para o carrossel */
             margin: auto;
             overflow: hidden;
             border-radius: 1rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
         .carousel-slide {
-            display: none; /* Hide slides by default */
+            display: none; /* Esconde os slides por padrão */
             width: 100%;
-            height: 450px; /* Fixed height for carousel images */
-            object-fit: cover; /* Ensure images cover the area */
+            height: 450px; /* Altura fixa para as imagens do carrossel */
+            object-fit: cover; /* Garante que as imagens cubram a área */
             border-radius: 1rem;
         }
         .carousel-slide.active {
-            display: block; /* Show active slide */
+            display: block; /* Mostra o slide ativo */
         }
         .carousel-dots {
             text-align: center;
@@ -65,20 +68,20 @@
             background-color: #717171;
         }
 
-        /* Map specific styles */
+        /* Estilos específicos do mapa */
         .brazil-map-container {
-            max-width: 800px; /* Max width for the map */
+            max-width: 800px; /* Largura máxima para o mapa */
             margin: 0 auto;
             padding: 20px;
             background-color: #ffffff;
             border-radius: 1rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            overflow: hidden; /* Ensure content stays within bounds */
-            border: 2px solid #ccc; /* Added border to make container visible */
-            transition: filter 0.3s ease-in-out; /* Smooth transition for hover effect */
+            overflow: hidden; /* Garante que o conteúdo permaneça dentro dos limites */
+            border: 2px solid #ccc; /* Borda adicionada para tornar o contêiner visível */
+            transition: filter 0.3s ease-in-out; /* Transição suave para o efeito hover */
         }
         .brazil-map-container:hover {
-            filter: brightness(1.1) saturate(1.1); /* Slightly brighter and more saturated on hover */
+            filter: brightness(1.1) saturate(1.1); /* Ligeiramente mais brilhante e saturado no hover */
         }
         .brazil-map-image {
             width: 100%;
@@ -86,30 +89,30 @@
             display: block;
         }
 
-        /* Banner specific styles */
+        /* Estilos específicos do banner */
         .banner-image-container {
             width: 100%;
-            height: 350px; /* Fixed height for the banner image */
-            overflow: hidden; /* Hide overflow if image is larger */
+            height: 350px; /* Altura fixa para a imagem do banner */
+            overflow: hidden; /* Esconde o excesso se a imagem for maior */
             position: relative;
         }
         .banner-image {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Cover the container while maintaining aspect ratio */
+            object-fit: cover; /* Cobre o contêiner mantendo a proporção */
             display: block;
         }
 
-        /* Mission Section */
+        /* Estilos para a seção de Missão */
         .mission-section {
-            background-color: #e0f7fa; /* Light cyan */
+            background-color: #e0f7fa; /* Ciano claro */
             border-radius: 1rem;
             padding: 3rem;
             box-shadow: 0 5px 15px -3px rgba(0, 0, 0, 0.08);
         }
         
         .mission-section h2 {
-            color: #00796b; /* Dark teal */
+            color: #00796b; /* Teal escuro */
         }
         .mission-section blockquote {
             font-style: italic;
@@ -119,34 +122,33 @@
             margin-top: 1.5rem;
             margin-bottom: 1.5rem;
         }
-        /* Partner card image styling */
+        /* Estilo para as imagens dos logos dos parceiros */
         .partner-logo {
-            width: 100%; /* Make image take full width of its container */
-            height: 150px; /* Increased height for the image to occupy more space */
-            object-fit: contain; /* Ensure logo fits without cropping */
-            margin: 0 auto 1rem auto; /* Center and add margin below */
-            border-radius: 0.5rem; /* Slightly rounded corners for logos */
-            /* Removed border: 2px solid #ccc; as it was not explicitly requested in this update */
+            width: 100%; /* Imagem ocupa a largura total do seu contêiner */
+            height: 150px; /* Altura aumentada para a imagem ocupar mais espaço */
+            object-fit: contain; /* Garante que o logo se ajuste sem cortar */
+            margin: 0 auto 1rem auto; /* Centraliza e adiciona margem abaixo */
+            border-radius: 0.5rem; /* Cantos ligeiramente arredondados para os logos */
         }
-        .Instituições:hover {
-            transform: translateY(-15px);
+        /* Estilo para o efeito hover nos cards de instituição (renomeado de .Instituições) */
+        .institution-card:hover {
+            transform: translateY(-15px); /* Efeito de levantar no hover */
         }
-
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
+    <!-- Cabeçalho da página -->
     <header class="header-bg text-white py-6 shadow-lg">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+        <div class="container mx-auto px-4 lg:px-12 flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center mb-4 md:mb-0">
-                <img src="logo.png" alt="Logo Pobres Servos da Divina Providência" class="h-20 w-auto mr-4 rounded-full">
-                
+                <img src="logo.png" alt="Logotipo da Congregação Nossa Senhora Aparecida" class="h-20 w-auto mr-4 rounded-full">
             </div>
             <nav>
                 <ul class="flex flex-wrap justify-center md:justify-end space-x-4 md:space-x-6">
-                    <li><a href="#" class="hover:text-gray-200 text-lg font-medium">Início</a></li>
+                    <li><a href="#inicio" class="hover:text-gray-200 text-lg font-medium">Início</a></li>
                     <li><a href="#impacto-numeros" class="hover:text-gray-200 text-lg font-medium">Resultados</a></li>
-                    <li><a href="#Instituições" class="hover:text-gray-200 text-lg font-medium">Instituições</a></li>
+                    <li><a href="#instituicoes" class="hover:text-gray-200 text-lg font-medium">Instituições</a></li>
                     <li><a href="#informacoes-juridicas" class="hover:text-gray-200 text-lg font-medium">Informações Jurídicas</a></li>
                     <li><a href="#materiais-apoio" class="hover:text-gray-200 text-lg font-medium">Materiais de Apoio</a></li>
                     <li><a href="#contato" class="hover:text-gray-200 text-lg font-medium">Contato</a></li>
@@ -155,17 +157,19 @@
         </div>
     </header>
 
+    <!-- Seção do banner principal -->
     <section class="banner-image-container shadow-md">
-        <img src="banner01.png" alt="Banner da Congregação Nossa Senhora Aparecida" class="banner-image">
+        <img src="banner01.png" alt="Banner da Congregação Nossa Senhora Aparecida, mostrando pessoas em atividades comunitárias" class="banner-image">
     </section>
 
-    <section class="container mx-auto px-4 py-8 text-center">
+    <!-- Seção do vídeo de apresentação -->
+    <section class="container mx-auto px-4 lg:px-12 py-8 text-center">
         <h2 class="text-3xl font-bold text-gray-800 mb-6">Delegação Nossa Senhora Aparecida</h2>
         <div class="relative overflow-hidden rounded-lg shadow-xl" style="padding-top: 56.25%;">
             <iframe
                 class="absolute top-0 left-0 w-full h-full"
                 src="https://www.youtube.com/embed/Ls72q5UVTCQ" 
-                title="YouTube video player"
+                title="Vídeo de apresentação da Delegação Nossa Senhora Aparecida"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen>
@@ -174,21 +178,24 @@
         <p class="text-gray-600 mt-4">Conheça mais sobre nossa missão e os projetos que realizamos.</p>
     </section>
 
-    <main class="flex-grow container mx-auto px-4 py-12">
+    <!-- Conteúdo principal da página -->
+    <main class="flex-grow container mx-auto px-4 lg:px-12 py-12">
 
-        <section class="text-center mb-16">
+        <!-- Seção de introdução e slogan -->
+        <section class="text-center mb-16" id="inicio">
             <h2 class="text-5xl font-extrabold text-gray-800 mb-6 leading-tight">Transformando Vidas com Amor e Dedicação</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 Na Congregação Nossa Senhora Aparecida, dedicamos nossos esforços para apoiar e acolher aqueles que mais precisam. Juntos, construímos um futuro mais inclusivo e esperançoso.
             </p>
         </section>
 
+        <!-- Seção do carrossel de imagens -->
         <section class="mb-16 carousel-container">
-            <!-- Carousel images with placeholders -->
-            <img class="carousel-slide active" src="https://placehold.co/900x450/FFD700/000000?text=Crianças+Felizes" alt="Crianças+Felizes">
-            <img class="carousel-slide" src="https://placehold.co/900x450/ADD8E6/000000?text=Atividades+Comunitárias" alt="Atividades+Comunitárias">
-            <img class="carousel-slide" src="https://placehold.co/900x450/90EE90/000000?text=Apoio+aos+Idosos" alt="Apoio+aos+Idosos">
-            <img class="carousel-slide" src="https://placehold.co/900x450/FFB6C1/000000?text=Eventos+Beneficentes" alt="Eventos+Beneficentes">
+            <!-- Imagens do carrossel com placeholders e alt text descritivo -->
+            <img class="carousel-slide active" src="https://placehold.co/900x450/FFD700/000000?text=Crianças+Felizes" alt="Crianças felizes brincando juntas em uma atividade da congregação">
+            <img class="carousel-slide" src="https://placehold.co/900x450/ADD8E6/000000?text=Atividades+Comunitárias" alt="Pessoas participando de atividades comunitárias e de integração">
+            <img class="carousel-slide" src="https://placehold.co/900x450/90EE90/000000?text=Apoio+aos+Idosos" alt="Idosos recebendo apoio e cuidado em um de nossos centros">
+            <img class="carousel-slide" src="https://placehold.co/900x450/FFB6C1/000000?text=Eventos+Beneficentes" alt="Pessoas em um evento beneficente, celebrando a comunidade">
 
             <div class="carousel-dots">
                 <span class="dot active" onclick="currentSlide(1)"></span>
@@ -198,6 +205,7 @@
             </div>
         </section>
 
+        <!-- Seção de impacto e números -->
         <section id="impacto-numeros" class="mb-16">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Resultados que refletem vidas</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -227,6 +235,7 @@
             </div>
         </section>
 
+        <!-- Seção da rede de apoio e colaboradores -->
         <section class="mb-16">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Nossa Rede de Apoio e Colaboradores</h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-6">
@@ -237,63 +246,67 @@
             </p>
         </section>
 
-        <section id="Instituições" class="mb-16">
+        <!-- Seção das instituições parceiras -->
+        <section id="instituicoes" class="mb-16">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Nossas Instituições</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <div class="Instituições p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="ipsdp.png" alt="Logo Instituto Pobres Servos" class="partner-logo">
+                <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
+                    <img src="ipsdp.png" alt="Logotipo do Instituto Pobres Servos da Divina Providência" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Instituto Pobres Servos da Divina Providência</h3>
                     <p class="text-gray-500 text-sm mt-2">Pilar fundamental de nossa missão.</p>
                 </div>
-                <div class="Instituições p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="abc.png" alt="Logo Associação Nossa Senhora da Assunção" class="partner-logo">
+                <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
+                    <img src="abc.png" alt="Logotipo da Associação Beneficente Nossa Senhora da Assunção" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Associação Beneficente Nossa Senhora da Assunção</h3>
                     <p class="text-gray-500 text-sm mt-2">Parceria em ações de assistência social.</p>
                 </div>
-                <div class="Instituições p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="IPLC.png" alt="Logo Instituto Padre Luís Cecchin" class="partner-logo">
+                <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
+                    <img src="IPLC.png" alt="Logotipo do Instituto Padre Luís Cecchin" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Instituto Padre Luís Cecchin</h3>
                     <p class="text-gray-500 text-sm mt-2">Colaboração em programas educacionais.</p>
                 </div>
-                <div class="Instituições p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="amecc.png" alt="Logo Associação Menores com Cristo" class="partner-logo">
+                <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
+                    <img src="amecc.png" alt="Logotipo da Associação Menores com Cristo" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Associação Menores com Cristo</h3>
                     <p class="text-gray-500 text-sm mt-2">Suporte a jovens e adolescentes.</p>
                 </div>
-                <div class="Instituições p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="IFP.png" alt="Logo Instituto Francisco Perez" class="partner-logo">
+                <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
+                    <img src="IFP.png" alt="Logotipo do Instituto Francisco Perez" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Instituto Francisco Perez</h3>
                     <p class="text-gray-500 text-sm mt-2">Parceria em iniciativas de desenvolvimento humano.</p>
                 </div>
-                <div class="Instituições p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="Religiosos.png" alt="Logo Rede Paroquial e Vocacional" class="partner-logo">
+                <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
+                    <img src="Religiosos.png" alt="Logotipo da Rede Paroquial e Vocacional" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Rede Paroquial e Vocacional</h3>
                     <p class="text-gray-500 text-sm mt-2">Fortalecendo a evangelização e a formação.</p>
                 </div>
             </div>
         </section>
 
+        <!-- Seção do mapa de atuação no Brasil -->
         <section class="mb-16">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Onde Atuamos - No Brasil</h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-6">
-                Presente em mais de 20 cidades brasileiras, com destaque para os estados do <strong>RS, PA, MS, MA, PE, PB e BA</strong>, a obra Calabriana chega aos mais diversos cantos do país.
+                Presente em mais de 20 cidades brasileiras, com destaque para os estados do **RS, PA, MS, MA, PE, PB e BA**, a obra Calabriana chega aos mais diversos cantos do país.
             </p>
             <div class="brazil-map-container">
-                <img src="mapa.png" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/333333?text=Mapa+do+Brasil';" alt="Mapa Político do Brasil" class="brazil-map-image">
+                <img src="mapa.png" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/333333?text=Mapa+do+Brasil';" alt="Mapa do Brasil destacando os estados de atuação da Congregação" class="brazil-map-image">
             </div>
         </section>
 
+        <!-- Seção de sustentação da obra -->
         <section class="mission-section text-gray-800 mb-16">
             <h2 class="text-4xl font-bold text-center mb-8">Uma Obra Sustentada pela Providência e Evangelização</h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-6">
                 Todo esse trabalho é fruto da confiança total na Providência de Deus. As ações são possíveis graças ao apoio de convênios com o poder público, à parceria com empresas e, principalmente, à generosidade de inúmeros benfeitores — homens e mulheres que acreditam em um mundo mais justo, humano e fraterno.
             </p>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-6">
-                A Delegação também reafirma seu compromisso com a evangelização e o cuidado pastoral. Com 13 paróquias e diversas casas de formação, o anúncio do Evangelho é parte essencial da missão. Em 2024, dezenas de jovens passaram por processos de discernimento vocacional e retiros formativos em diferentes regiões do país.
+                A Delegação também reafirma seu compromisso com a evangelização e o cuidado pastoral. Com 13 paróquias e diversas casas de formação, o anúncio do Evangelho é parte essencial da missão. Em 2024, dezenas de jovens passaram por processos de discernimento vocacional e retiros formativos em diferentes regiões do país.<
             </p>
         </section>
 
-        <section class="text-center bg-blue-100 p-10 rounded-2xl shadow-inner mb-16">
+        <!-- Seção de chamada para ação -->
+        <section class="text-center bg-blue-100 p-10 rounded-2xl shadow-inner mb-16" id="contato">
             <h2 class="text-3xl font-bold text-gray-800 mb-4">Faça a Diferença!</h2>
             <p class="text-lg text-gray-600 mb-6">Sua ajuda é fundamental para continuarmos transformando vidas. Junte-se a nós!</p>
             <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
@@ -302,55 +315,57 @@
         </section>
     </main>
 
+    <!-- Rodapé da página -->
     <footer class="footer-bg text-white py-8 mt-12">
-        <div class="container mx-auto px-4 text-center">
+        <div class="container mx-auto px-4 lg:px-12 text-center">
             <p>&copy; 2025 Congregação Nossa Senhora Aparecida. Todos os direitos reservados.</p>
         </div>
     </footer>
 
+    <!-- Script JavaScript para o carrossel -->
     <script>
         let slideIndex = 0;
-        let slideInterval; // Variable to hold the interval ID
+        let slideInterval; // Variável para armazenar o ID do intervalo
 
-        // Function to display slides
+        // Função para exibir os slides do carrossel
         function showSlides() {
             let i;
             let slides = document.getElementsByClassName("carousel-slide");
             let dots = document.getElementsByClassName("dot");
 
-            // Hide all slides
+            // Esconde todos os slides
             for (i = 0; i < slides.length; i++) {
                 slides[i].classList.remove('active');
             }
 
-            // Reset all dots to inactive
+            // Desativa todos os pontos de navegação
             for (i = 0; i < dots.length; i++) {
                 dots[i].classList.remove('active');
             }
 
-            // Advance slide index
+            // Avança o índice do slide
             slideIndex++;
             if (slideIndex > slides.length) {
-                slideIndex = 1; // Loop back to the first slide
+                slideIndex = 1; // Volta para o primeiro slide se chegar ao final
             }
 
-            // Show the current slide and activate the corresponding dot
+            // Mostra o slide atual e ativa o ponto correspondente
             slides[slideIndex - 1].classList.add('active');
             dots[slideIndex - 1].classList.add('active');
 
-            // Set a timeout for the next slide (automatic advance)
-            clearTimeout(slideInterval); // Clear any existing interval
-            slideInterval = setTimeout(showSlides, 4000); // Change image every 4 seconds
+            // Define um tempo limite para o próximo slide (avanço automático)
+            clearTimeout(slideInterval); // Limpa qualquer intervalo existente
+            slideInterval = setTimeout(showSlides, 4000); // Muda a imagem a cada 4 segundos
         }
 
-        // Function to show a specific slide when a dot is clicked
+        // Função para mostrar um slide específico quando um ponto é clicado
         function currentSlide(n) {
-            clearTimeout(slideInterval); // Clear the automatic advance
-            slideIndex = n - 1; // Adjust slideIndex to be 0-based for the showSlides logic
-            showSlides(); // Show the selected slide
+            clearTimeout(slideInterval); // Limpa o avanço automático
+            slideIndex = n - 1; // Ajusta o índice do slide para ser baseado em 0 para a lógica de showSlides
+            showSlides(); // Mostra o slide selecionado
         }
 
-        // Start the carousel when the window loads
+        // Inicia o carrossel quando a janela é carregada
         window.onload = function() {
             showSlides();
         };
