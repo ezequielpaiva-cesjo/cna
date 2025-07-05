@@ -15,7 +15,7 @@
             background-color: #f8f8f8; /* Light gray background */
             color: #333; /* Dark gray text */
             /* Padding top adjusted to accommodate the fixed header and the fixed news banner */
-            padding-top: 210px; /* Approximately 110px (header max height) + 100px (banner height) */
+            padding-top: 110px; /* Adjusted padding-top for even smaller header and banner */
         }
         .section-title {
             position: relative;
@@ -67,20 +67,19 @@
 
         /* Header fixed and scrolled states */
         .header-initial {
-            padding-top: 1.5rem; /* py-6 */
-            padding-bottom: 1.5rem; /* py-6 */
+            padding-top: 0.75rem; /* py-3, further reduced */
+            padding-bottom: 0.75rem; /* py-3, further reduced */
             transition: padding 0.3s ease-in-out;
         }
         .header-scrolled {
-            padding-top: 0.75rem; /* py-3 */
-            padding-bottom: 0.75rem; /* py-3 */
+            padding-top: 0.25rem; /* py-1, further reduced */
+            padding-bottom: 0.25rem; /* py-1, further reduced */
             transition: padding 0.3s ease-in-out;
         }
 
         /* News Banner Carousel specific styles */
         .carousel-container-banner {
             width: 100%;
-            max-width: 1200px; /* Max width for the news banner */
             margin: 0 auto;
             overflow: hidden;
         }
@@ -94,7 +93,7 @@
         }
         .carousel-slide-banner img {
             width: 100%;
-            height: 100px; /* Fixed height for banner images */
+            height: 50px; /* Fixed height for banner images, further reduced from 70px */
             object-fit: cover;
         }
         /* Hide scrollbar for banner carousel track */
@@ -134,16 +133,16 @@
 
     <!-- News Banner Carousel Section -->
     <section id="news-banner-carousel" class="fixed w-full z-40 bg-gray-300 shadow-md" style="top: 110px;">
-        <div class="carousel-container-banner mx-auto overflow-hidden">
+        <div class="carousel-container-banner mx-auto overflow-hidden max-w-4xl">
             <div class="carousel-track-banner flex transition-transform duration-500 ease-in-out" id="carousel-track-banner">
                 <div class="carousel-slide-banner min-w-full flex-shrink-0">
-                    <img src="https://placehold.co/1200x100/E0E0E0/333333?text=Novidade+1:+Ofertas+Especiais!" alt="Novidade 1" class="w-full h-full object-cover">
+                    <img src="https://placehold.co/1200x50/E0E0E0/333333?text=Novidade+1:+Ofertas+Especiais!" alt="Novidade 1" class="w-full h-full object-cover">
                 </div>
                 <div class="carousel-slide-banner min-w-full flex-shrink-0">
-                    <img src="https://placehold.co/1200x100/D0D0D0/333333?text=Novidade+2:+Novos+Produtos+Chegando!" alt="Novidade 2" class="w-full h-full object-cover">
+                    <img src="https://placehold.co/1200x50/D0D0D0/333333?text=Novidade+2:+Novos+Produtos+Chegando!" alt="Novidade 2" class="w-full h-full object-cover">
                 </div>
                 <div class="carousel-slide-banner min-w-full flex-shrink-0">
-                    <img src="https://placehold.co/1200x100/C0C0C0/333333?text=Novidade+3:+Frete+Grátis+Acima+de+R$150!" alt="Novidade 3" class="w-full h-full object-cover">
+                    <img src="https://placehold.co/1200x50/C0C0C0/333333?text=Novidade+3:+Frete+Grátis+Acima+de+R$150!" alt="Novidade 3" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
@@ -151,7 +150,7 @@
 
     <!-- Hero Section -->
     <section class="bg-white py-20 text-center shadow-inner">
-        <div class="container mx-auto px-6"> <!-- Added container for max-width -->
+        <div class="container mx-auto px-6 max-w-4xl">
             <h1 class="text-5xl font-extrabold text-gray-900 mb-4 leading-tight">Crie, Personalize, Encante.</h1>
             <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
                 Transformamos suas ideias em produtos únicos. Explore nosso portfólio de itens personalizados feitos com paixão e precisão.
@@ -164,7 +163,7 @@
 
     <!-- Products Section -->
     <section id="produtos" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-6"> <!-- Added container for max-width -->
+        <div class="container mx-auto px-6 max-w-4xl">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-12 section-title mx-auto">Nossos Produtos Personalizados</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -327,7 +326,7 @@
 
     <!-- About Us Section -->
     <section id="sobre" class="py-16 bg-white">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-10"> <!-- Added container for max-width -->
+        <div class="container mx-auto px-6 max-w-4xl flex flex-col md:flex-row items-center gap-10">
             <div class="md:w-1/2 text-center md:text-left">
                 <h2 class="text-4xl font-bold text-gray-800 mb-6 section-title md:mx-0 mx-auto">Sobre Nós</h2>
                 <p class="text-lg text-gray-700 leading-relaxed mb-4">
@@ -345,7 +344,7 @@
 
     <!-- Automatic Image Carousel Section (Gallery) -->
     <section id="carousel" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-6"> <!-- Added container for max-width -->
+        <div class="container mx-auto px-6 max-w-4xl">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-12 section-title mx-auto">Nossa Galeria</h2>
 
             <div class="carousel-container">
@@ -369,7 +368,7 @@
 
     <!-- Social Media Icons Section -->
     <section class="bg-gray-700 py-6 text-center">
-        <div class="container mx-auto px-6"> <!-- Added container for max-width -->
+        <div class="container mx-auto px-6 max-w-4xl">
             <h3 class="text-xl font-semibold text-white mb-4">Siga-nos nas Redes Sociais!</h3>
             <div class="flex justify-center space-x-6">
                 <!-- WhatsApp Icon -->
@@ -391,7 +390,7 @@
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8 text-center">
-        <div class="container mx-auto px-6"> <!-- Added container for max-width -->
+        <div class="container mx-auto px-6 max-w-4xl">
             <p>&copy; 2025 Seu Portfólio de Produtos Personalizados. Todos os direitos reservados.</p>
             <div class="flex justify-center space-x-4 mt-4 hidden">
                 <!-- These links are now redundant and can be removed or kept hidden -->
