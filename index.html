@@ -67,6 +67,33 @@
         .dot.active, .dot:hover {
             background-color: #717171;
         }
+        /* Botões de navegação do carrossel */
+        .carousel-btn {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .carousel-btn:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        .prev {
+            left: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
 
         /* Estilos específicos do mapa */
         .brazil-map-container {
@@ -173,19 +200,43 @@
                 align-items: center; /* Centraliza o conteúdo horizontalmente */
             }
         }
+
+        /* Estilo para o botão "Voltar ao Topo" */
+        #back-to-top {
+            display: none; /* Oculto por padrão */
+            position: fixed; /* Posição fixa na tela */
+            bottom: 20px; /* 20px do fundo */
+            right: 30px; /* 30px da direita */
+            z-index: 99; /* Garante que fique acima de outros elementos */
+            border: none; /* Sem borda */
+            outline: none; /* Sem outline */
+            background-color: #0ABAB5; /* Cor de fundo */
+            color: white; /* Cor do texto/ícone */
+            cursor: pointer; /* Cursor de clique */
+            padding: 15px; /* Preenchimento */
+            border-radius: 10px; /* Cantos arredondados */
+            font-size: 18px; /* Tamanho da fonte */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+            transition: background-color 0.3s, transform 0.3s; /* Transição suave */
+        }
+
+        #back-to-top:hover {
+            background-color: #088a85; /* Cor de fundo mais escura no hover */
+            transform: translateY(-5px); /* Efeito de levantar */
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <!-- Cabeçalho da página -->
-    <header class="header-bg text-white py-6 shadow-lg relative">
+    <header class="header-bg text-white py-6 shadow-lg fixed top-0 w-full z-50">
         <div class="container mx-auto px-4 lg:px-12 max-w-6xl flex justify-between items-center">
             <div class="flex items-center">
-                <img src="logo.png" onerror="this.onerror=null;this.src='https://placehold.co/80x80/0ABAB5/ffffff?text=Logo';" alt="Logotipo da Congregação Nossa Senhora Aparecida" class="h-20 w-auto mr-4 rounded-full">
+                <img src="logo.png" onerror="this.onerror=null;this.src='https://placehold.co/80x80/0ABAB5/ffffff?text=Logo';" alt="Logotipo da Congregação Nossa Senhora Aparecida" class="h-20 w-auto mr-4 rounded-full" loading="lazy">
                 <h1 class="text-2xl font-bold hidden md:block">Congregação Nossa Senhora Aparecida</h1>
             </div>
             <!-- Botão do menu hambúrguer (visível apenas em telas pequenas) -->
-            <button id="hamburger-button" class="md:hidden text-white focus:outline-none">
+            <button id="hamburger-button" class="md:hidden text-white focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu de navegação">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
@@ -216,8 +267,8 @@
     </header>
 
     <!-- Seção do banner principal -->
-    <section class="banner-image-container shadow-md">
-        <img src="banner01.png" onerror="this.onerror=null;this.src='https://placehold.co/1200x350/0ABAB5/ffffff?text=Banner+Principal';" alt="Banner da Congregação Nossa Senhora Aparecida, mostrando pessoas em atividades comunitárias" class="banner-image">
+    <section class="banner-image-container shadow-md mt-24"> <!-- Adicionado mt-24 para compensar o cabeçalho fixo -->
+        <img src="banner01.png" onerror="this.onerror=null;this.src='https://placehold.co/1200x350/0ABAB5/ffffff?text=Banner+Principal';" alt="Banner da Congregação Nossa Senhora Aparecida, mostrando pessoas em atividades comunitárias" class="banner-image" loading="lazy">
     </section>
 
     <!-- Seção do vídeo de apresentação -->
@@ -229,7 +280,7 @@
             <div class="relative" style="padding-top: 56.25%;">
                 <iframe
                     class="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/Ls72q5UVTCQ" 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
                     title="Vídeo de apresentação da Delegação Nossa Senhora Aparecida"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -254,16 +305,20 @@
         <!-- Seção do carrossel de imagens -->
         <section class="mb-16 carousel-container">
             <!-- Imagens do carrossel com placeholders e alt text descritivo -->
-            <img class="carousel-slide active" src="https://placehold.co/900x450/FFD700/000000?text=Crianças+Felizes" alt="Crianças felizes brincando juntas em uma atividade da congregação">
-            <img class="carousel-slide" src="https://placehold.co/900x450/ADD8E6/000000?text=Atividades+Comunitárias" alt="Pessoas participando de atividades comunitárias e de integração">
-            <img class="carousel-slide" src="https://placehold.co/900x450/90EE90/000000?text=Apoio+aos+Idosos" alt="Idosos recebendo apoio e cuidado em um de nossos centros">
-            <img class="carousel-slide" src="https://placehold.co/900x450/FFB6C1/000000?text=Eventos+Beneficentes" alt="Pessoas em um evento beneficente, celebrando a comunidade">
+            <img class="carousel-slide active" src="https://placehold.co/900x450/FFD700/000000?text=Crianças+Felizes" alt="Crianças felizes brincando juntas em uma atividade da congregação" loading="lazy">
+            <img class="carousel-slide" src="https://placehold.co/900x450/ADD8E6/000000?text=Atividades+Comunitárias" alt="Pessoas participando de atividades comunitárias e de integração" loading="lazy">
+            <img class="carousel-slide" src="https://placehold.co/900x450/90EE90/000000?text=Apoio+aos+Idosos" alt="Idosos recebendo apoio e cuidado em um de nossos centros" loading="lazy">
+            <img class="carousel-slide" src="https://placehold.co/900x450/FFB6C1/000000?text=Eventos+Beneficentes" alt="Voluntários em um evento beneficente, celebrando a comunidade" loading="lazy">
+
+            <!-- Botões de navegação do carrossel -->
+            <a class="carousel-btn prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="carousel-btn next" onclick="plusSlides(1)">&#10095;</a>
 
             <div class="carousel-dots">
-                <span class="dot active" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot active" onclick="currentSlide(1)" aria-label="Ir para o slide 1"></span>
+                <span class="dot" onclick="currentSlide(2)" aria-label="Ir para o slide 2"></span>
+                <span class="dot" onclick="currentSlide(3)" aria-label="Ir para o slide 3"></span>
+                <span class="dot" onclick="currentSlide(4)" aria-label="Ir para o slide 4"></span>
             </div>
         </section>
 
@@ -272,25 +327,25 @@
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Resultados que refletem vidas</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="card p-8 text-center">
-                    <div id="num-assistencia" class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-blue-600 mb-4" data-original="41.000+">0</div>
+                    <div id="num-assistencia" class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-blue-600 mb-4" data-original="41000">0</div>
                     <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-700 mb-2">Pessoas Atendidas em Assistência Social</h3>
                     <p class="text-xs sm:text-sm md:text-base text-gray-500 break-words">Apenas nas áreas de assistência social, levando apoio e dignidade.</p>
                 </div>
 
                 <div class="card p-8 text-center">
-                    <div id="num-educacao" class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-green-600 mb-4" data-original="1.734">0</div>
+                    <div id="num-educacao" class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-green-600 mb-4" data-original="1734">0</div>
                     <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-700 mb-2">Crianças na Educação Infantil</h3>
                     <p class="text-xs sm:text-sm md:text-base text-gray-500 break-words">Acolhidas em nossos programas de educação, promovendo o desenvolvimento.</p>
                 </div>
 
                 <div class="card p-8 text-center">
-                    <div id="num-beneficiarios" class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-purple-600 mb-4" data-original="2.400+">0</div>
+                    <div id="num-beneficiarios" class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-purple-600 mb-4" data-original="2400">0</div>
                     <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-700 mb-2">Beneficiários em Programas</h3>
                     <p class="text-xs sm:text-sm md:text-base text-gray-500 break-words">Em programas de convivência, formação e profissionalização.</p>
                 </div>
 
                 <div class="card p-8 text-center">
-                    <div id="num-investidos" class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-pink-600 mb-4" data-original="R$ 54 Milhões">R$ 0</div>
+                    <div id="num-investidos" class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-pink-600 mb-4" data-original="54000000">R$ 0</div>
                     <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-700 mb-2">Investidos em Serviços Gratuitos</h3>
                     <p class="text-xs sm:text-sm md:text-base text-gray-500 break-words">Recursos aplicados para a população mais vulnerável, garantindo acesso a serviços essenciais.</p>
                 </div>
@@ -313,32 +368,32 @@
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Nossas Instituições</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="ipsdp.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=IPSDP';" alt="Logotipo do Instituto Pobres Servos da Divina Providência" class="partner-logo">
+                    <img src="ipsdp.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=IPSDP';" alt="Logotipo do Instituto Pobres Servos da Divina Providência" class="partner-logo" loading="lazy">
                     <h3 class="text-xl font-semibold text-gray-700">Instituto Pobres Servos da Divina Providência</h3>
                     <p class="text-gray-500 text-sm mt-2">Pilar fundamental de nossa missão.</p>
                 </div>
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="abc.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=ABNSA';" alt="Logotipo da Associação Beneficente Nossa Senhora da Assunção" class="partner-logo">
+                    <img src="abc.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=ABNSA';" alt="Logotipo da Associação Beneficente Nossa Senhora da Assunção" class="partner-logo" loading="lazy">
                     <h3 class="text-xl font-semibold text-gray-700">Associação Beneficente Nossa Senhora da Assunção</h3>
                     <p class="text-gray-500 text-sm mt-2">Parceria em ações de assistência social.</p>
                 </div>
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="IPLC.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=IPLC';" alt="Logotipo do Instituto Padre Luís Cecchin" class="partner-logo">
+                    <img src="IPLC.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=IPLC';" alt="Logotipo do Instituto Padre Luís Cecchin" class="partner-logo" loading="lazy">
                     <h3 class="text-xl font-semibold text-gray-700">Instituto Padre Luís Cecchin</h3>
                     <p class="text-gray-500 text-sm mt-2">Colaboração em programas educacionais.</p>
                 </div>
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="amecc.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=AMECC';" alt="Logotipo da Associação Menores com Cristo" class="partner-logo">
+                    <img src="amecc.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=AMECC';" alt="Logotipo da Associação Menores com Cristo" class="partner-logo" loading="lazy">
                     <h3 class="text-xl font-semibold text-gray-700">Associação Menores com Cristo</h3>
                     <p class="text-gray-500 text-sm mt-2">Suporte a jovens e adolescentes.</p>
                 </div>
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="IFP.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=IFP';" alt="Logotipo do Instituto Francisco Perez" class="partner-logo">
+                    <img src="IFP.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=IFP';" alt="Logotipo do Instituto Francisco Perez" class="partner-logo" loading="lazy">
                     <h3 class="text-xl font-semibold text-gray-700">Instituto Francisco Perez</h3>
                     <p class="text-gray-500 text-sm mt-2">Parceria em iniciativas de desenvolvimento humano.</p>
                 </div>
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="Religiosos.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=Rede+Paroquial';" alt="Logotipo da Rede Paroquial e Vocacional" class="partner-logo">
+                    <img src="Religiosos.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=Rede+Paroquial';" alt="Logotipo da Rede Paroquial e Vocacional" class="partner-logo" loading="lazy">
                     <h3 class="text-xl font-semibold text-gray-700">Rede Paroquial e Vocacional</h3>
                     <p class="text-gray-500 text-sm mt-2">Fortalecendo a evangelização e a formação.</p>
                 </div>
@@ -352,7 +407,7 @@
                 Presente em mais de 20 cidades brasileiras, com destaque para os estados do <strong>RS, PA, MS, MA, PE, PB e BA</strong>, a obra Calabriana chega aos mais diversos cantos do país.
             </p>
             <div class="brazil-map-container">
-                <img src="mapa.png" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/333333?text=Mapa+do+Brasil';" alt="Mapa do Brasil destacando os estados de atuação da Congregação" class="brazil-map-image">
+                <img src="mapa.png" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/333333?text=Mapa+do+Brasil';" alt="Mapa do Brasil destacando os estados do Rio Grande do Sul, Pará, Mato Grosso do Sul, Maranhão, Pernambuco, Paraíba e Bahia, onde a Congregação atua." class="brazil-map-image" loading="lazy">
             </div>
         </section>
 
@@ -377,62 +432,80 @@
         </section>
     </main>
 
+    <!-- Botão "Voltar ao Topo" -->
+    <button id="back-to-top" title="Voltar ao Topo">↑</button>
+
     <!-- Rodapé da página -->
     <footer class="footer-bg text-white py-8 mt-12">
         <div class="container mx-auto px-4 lg:px-12 max-w-6xl text-center">
-            <p>&copy; 2025 Congregação Nossa Senhora Aparecida. Todos os direitos reservados.</p>
+            <p>© 2025 Congregação Nossa Senhora Aparecida. Todos os direitos reservados.</p>
         </div>
     </footer>
 
-    <!-- Script JavaScript para o carrossel e menu hambúrguer -->
+    <!-- Script JavaScript para o carrossel, menu hambúrguer, animação de números e botão de voltar ao topo -->
     <script>
-        let slideIndex = 0;
-        let slideInterval; // Variável para armazenar o ID do intervalo
+        // --- Carrossel de Imagens ---
+        let slideIndex = 1; // Inicia no primeiro slide
+        let slideInterval; // Variável para armazenar o ID do intervalo do avanço automático
 
-        // Função para exibir os slides do carrossel
-        function showSlides() {
+        /**
+         * Exibe um slide específico do carrossel.
+         * @param {number} n - O índice do slide a ser exibido.
+         */
+        function showSlides(n) {
             let i;
-            let slides = document.getElementsByClassName("carousel-slide");
-            let dots = document.getElementsByClassName("dot");
+            const slides = document.getElementsByClassName("carousel-slide");
+            const dots = document.getElementsByClassName("dot");
 
-            // Esconde todos os slides
+            // Garante que n esteja dentro dos limites dos slides
+            if (n > slides.length) {
+                slideIndex = 1;
+            }
+            if (n < 1) {
+                slideIndex = slides.length;
+            }
+
+            // Esconde todos os slides e desativa todos os pontos de navegação
             for (i = 0; i < slides.length; i++) {
                 slides[i].classList.remove('active');
             }
-
-            // Desativa todos os pontos de navegação
             for (i = 0; i < dots.length; i++) {
                 dots[i].classList.remove('active');
-            }
-
-            // Avança o índice do slide
-            slideIndex++;
-            if (slideIndex > slides.length) {
-                slideIndex = 1; // Volta para o primeiro slide se chegar ao final
             }
 
             // Mostra o slide atual e ativa o ponto correspondente
             slides[slideIndex - 1].classList.add('active');
             dots[slideIndex - 1].classList.add('active');
 
-            // Define um tempo limite para o próximo slide (avanço automático)
-            clearTimeout(slideInterval); // Limpa qualquer intervalo existente
-            slideInterval = setTimeout(showSlides, 4000); // Muda a imagem a cada 4 segundos
+            // Limpa qualquer intervalo existente e define um novo para o avanço automático
+            clearTimeout(slideInterval);
+            slideInterval = setTimeout(() => plusSlides(1), 4000); // Muda a imagem a cada 4 segundos
         }
 
-        // Função para mostrar um slide específico quando um ponto é clicado
+        /**
+         * Avança ou retrocede os slides do carrossel.
+         * @param {number} n - O número de slides para avançar (1 para próximo, -1 para anterior).
+         */
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        /**
+         * Navega para um slide específico quando um ponto é clicado.
+         * @param {number} n - O índice do slide para o qual navegar.
+         */
         function currentSlide(n) {
-            clearTimeout(slideInterval); // Limpa o avanço automático
-            slideIndex = n - 1; // Ajusta o índice do slide para ser baseado em 0 para a lógica de showSlides
-            showSlides(); // Mostra o slide selecionado
+            showSlides(slideIndex = n);
         }
 
-        // Lógica para o menu hambúrguer
+        // --- Menu Hambúrguer ---
         document.addEventListener('DOMContentLoaded', function() {
             const hamburgerButton = document.getElementById('hamburger-button');
             const mobileMenu = document.getElementById('mobile-menu');
 
             hamburgerButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true' || false;
+                this.setAttribute('aria-expanded', !isExpanded);
                 mobileMenu.classList.toggle('active'); // Alterna a classe 'active' para mostrar/esconder o menu
             });
 
@@ -440,11 +513,12 @@
             mobileMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.remove('active');
+                    hamburgerButton.setAttribute('aria-expanded', 'false');
                 });
             });
         });
 
-        // --- Lógica para animação dos números ---
+        // --- Animação dos Números ---
         const numbersToAnimate = [
             { id: 'num-assistencia', prefix: '', suffix: '+' },
             { id: 'num-educacao', prefix: '', suffix: '' },
@@ -452,6 +526,13 @@
             { id: 'num-investidos', prefix: 'R$ ', suffix: ' Milhões' }
         ];
 
+        /**
+         * Anima um número de 0 até o valor alvo.
+         * @param {HTMLElement} element - O elemento HTML onde o número será exibido.
+         * @param {number} targetValue - O valor final da animação.
+         * @param {string} prefix - Prefixo a ser adicionado ao número (ex: "R$ ").
+         * @param {string} suffix - Sufixo a ser adicionado ao número (ex: "+", " Milhões").
+         */
         function animateNumber(element, targetValue, prefix = '', suffix = '') {
             let start = 0;
             const duration = 2000; // 2 segundos
@@ -462,12 +543,12 @@
             const countUp = () => {
                 frame++;
                 const progress = frame / totalFrames;
-                const currentValue = Math.round(targetValue * progress);
+                let currentValue = Math.round(targetValue * progress);
 
                 if (element.id === 'num-investidos') {
                     // Formata para milhões com ponto e vírgula
-                    const millions = (currentValue / 1000000).toFixed(0);
-                    element.innerText = `${prefix}${millions} ${suffix}`;
+                    const millions = (currentValue / 1000000).toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                    element.innerText = `${prefix}${millions}${suffix}`;
                 } else {
                     // Formata números com ponto como separador de milhares
                     element.innerText = `${prefix}${currentValue.toLocaleString('pt-BR')}${suffix}`;
@@ -476,9 +557,9 @@
                 if (frame < totalFrames) {
                     requestAnimationFrame(countUp);
                 } else {
-                    // Garante que o valor final seja exatamente o target
+                    // Garante que o valor final seja exatamente o target formatado
                     if (element.id === 'num-investidos') {
-                         element.innerText = `${prefix}${targetValue / 1000000} ${suffix}`;
+                         element.innerText = `${prefix}${(targetValue / 1000000).toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}${suffix}`;
                     } else {
                         element.innerText = `${prefix}${targetValue.toLocaleString('pt-BR')}${suffix}`;
                     }
@@ -490,19 +571,15 @@
         const impactSection = document.getElementById('impacto-numeros');
         let animated = false; // Flag para garantir que a animação ocorra apenas uma vez
 
+        // Intersection Observer para disparar a animação quando a seção de impacto for visível
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !animated) {
                     numbersToAnimate.forEach(item => {
                         const element = document.getElementById(item.id);
                         if (element) {
-                            // Remove caracteres não numéricos para obter o valor alvo
-                            let targetValue = element.dataset.original.replace(/[R$\s\+.]/g, '').replace(',', '.');
-                            if (item.id === 'num-investidos') {
-                                targetValue = parseFloat(targetValue) * 1000000; // Converte "54" para 54000000
-                            } else {
-                                targetValue = parseInt(targetValue, 10);
-                            }
+                            // Obtém o valor original do atributo data-original
+                            const targetValue = parseFloat(element.dataset.original);
                             animateNumber(element, targetValue, item.prefix, item.suffix);
                         }
                     });
@@ -512,10 +589,28 @@
             });
         }, { threshold: 0.5 }); // A animação dispara quando 50% da seção está visível
 
+        // --- Botão "Voltar ao Topo" ---
+        const backToTopButton = document.getElementById('back-to-top');
+
+        // Mostra ou esconde o botão de voltar ao topo
+        window.onscroll = function() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        };
+
+        // Rola a página para o topo quando o botão é clicado
+        backToTopButton.addEventListener('click', function() {
+            document.body.scrollTop = 0; // Para Safari
+            document.documentElement.scrollTop = 0; // Para Chrome, Firefox, IE e Opera
+        });
+
         // Inicia o carrossel e observa a seção de impacto quando a janela é carregada
         window.onload = function() {
-            showSlides();
-            observer.observe(impactSection);
+            showSlides(slideIndex); // Inicia o carrossel
+            observer.observe(impactSection); // Observa a seção de impacto
         };
     </script>
 </body>
