@@ -134,17 +134,53 @@
         .institution-card:hover {
             transform: translateY(-15px); /* Efeito de levantar no hover */
         }
+
+        /* Estilo para o menu hambúrguer em telas pequenas */
+        @media (max-width: 767px) {
+            .mobile-menu {
+                display: none; /* Esconde o menu por padrão em telas pequenas */
+            }
+            .mobile-menu.active {
+                display: flex; /* Mostra o menu quando ativo */
+                flex-direction: column;
+                width: 100%;
+                background-color: #0ABAB5; /* Cor de fundo do menu móvel */
+                position: absolute;
+                top: 96px; /* Ajusta para ficar abaixo do cabeçalho */
+                left: 0;
+                z-index: 10;
+                padding: 1rem 0;
+                border-radius: 0 0 1rem 1rem;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+            .mobile-menu a {
+                padding: 0.75rem 1.5rem;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            .mobile-menu a:last-child {
+                border-bottom: none;
+            }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <!-- Cabeçalho da página -->
-    <header class="header-bg text-white py-6 shadow-lg">
-        <div class="container mx-auto px-4 lg:px-12 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center mb-4 md:mb-0">
-                <img src="logo.png" alt="Logotipo da Congregação Nossa Senhora Aparecida" class="h-20 w-auto mr-4 rounded-full">
+    <header class="header-bg text-white py-6 shadow-lg relative">
+        <div class="container mx-auto px-4 lg:px-12 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="logo.png" onerror="this.onerror=null;this.src='https://placehold.co/80x80/0ABAB5/ffffff?text=Logo';" alt="Logotipo da Congregação Nossa Senhora Aparecida" class="h-20 w-auto mr-4 rounded-full">
+                <h1 class="text-2xl font-bold hidden md:block">Congregação Nossa Senhora Aparecida</h1>
             </div>
-            <nav>
+            <!-- Botão do menu hambúrguer (visível apenas em telas pequenas) -->
+            <button id="hamburger-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <!-- Menu de navegação para desktop -->
+            <nav class="hidden md:block">
                 <ul class="flex flex-wrap justify-center md:justify-end space-x-4 md:space-x-6">
                     <li><a href="#inicio" class="hover:text-gray-200 text-lg font-medium">Início</a></li>
                     <li><a href="#impacto-numeros" class="hover:text-gray-200 text-lg font-medium">Resultados</a></li>
@@ -155,11 +191,22 @@
                 </ul>
             </nav>
         </div>
+        <!-- Menu móvel (inicialmente oculto) -->
+        <nav id="mobile-menu" class="mobile-menu hidden md:hidden">
+            <ul class="flex flex-col items-center w-full">
+                <li><a href="#inicio" class="block py-2 text-white hover:bg-teal-600 w-full">Início</a></li>
+                <li><a href="#impacto-numeros" class="block py-2 text-white hover:bg-teal-600 w-full">Resultados</a></li>
+                <li><a href="#instituicoes" class="block py-2 text-white hover:bg-teal-600 w-full">Instituições</a></li>
+                <li><a href="#informacoes-juridicas" class="block py-2 text-white hover:bg-teal-600 w-full">Informações Jurídicas</a></li>
+                <li><a href="#materiais-apoio" class="block py-2 text-white hover:bg-teal-600 w-full">Materiais de Apoio</a></li>
+                <li><a href="#contato" class="block py-2 text-white hover:bg-teal-600 w-full">Contato</a></li>
+            </ul>
+        </nav>
     </header>
 
     <!-- Seção do banner principal -->
     <section class="banner-image-container shadow-md">
-        <img src="banner01.png" alt="Banner da Congregação Nossa Senhora Aparecida, mostrando pessoas em atividades comunitárias" class="banner-image">
+        <img src="banner01.png" onerror="this.onerror=null;this.src='https://placehold.co/1200x350/0ABAB5/ffffff?text=Banner+Principal';" alt="Banner da Congregação Nossa Senhora Aparecida, mostrando pessoas em atividades comunitárias" class="banner-image">
     </section>
 
     <!-- Seção do vídeo de apresentação -->
@@ -167,7 +214,6 @@
         <h2 class="text-3xl font-bold text-gray-800 mb-6">Delegação Nossa Senhora Aparecida</h2>
         <!-- Contêiner do iframe com largura máxima e centralização para diminuir o vídeo -->
         <div class="relative overflow-hidden rounded-lg shadow-xl max-w-xl mx-auto" style="padding-top: 56.25%;">
-        <div class="relative overflow-hidden rounded-lg shadow-xl max-w-xl mx-auto" style="padding-top: 100%;">
             <iframe
                 class="absolute top-0 left-0 w-full h-full"
                 src="https://www.youtube.com/embed/Ls72q5UVTCQ" 
@@ -253,32 +299,32 @@
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Nossas Instituições</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="ipsdp.png" alt="Logotipo do Instituto Pobres Servos da Divina Providência" class="partner-logo">
+                    <img src="ipsdp.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=IPSDP';" alt="Logotipo do Instituto Pobres Servos da Divina Providência" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Instituto Pobres Servos da Divina Providência</h3>
                     <p class="text-gray-500 text-sm mt-2">Pilar fundamental de nossa missão.</p>
                 </div>
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="abc.png" alt="Logotipo da Associação Beneficente Nossa Senhora da Assunção" class="partner-logo">
+                    <img src="abc.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=ABNSA';" alt="Logotipo da Associação Beneficente Nossa Senhora da Assunção" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Associação Beneficente Nossa Senhora da Assunção</h3>
                     <p class="text-gray-500 text-sm mt-2">Parceria em ações de assistência social.</p>
                 </div>
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="IPLC.png" alt="Logotipo do Instituto Padre Luís Cecchin" class="partner-logo">
+                    <img src="IPLC.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=IPLC';" alt="Logotipo do Instituto Padre Luís Cecchin" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Instituto Padre Luís Cecchin</h3>
                     <p class="text-gray-500 text-sm mt-2">Colaboração em programas educacionais.</p>
                 </div>
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="amecc.png" alt="Logotipo da Associação Menores com Cristo" class="partner-logo">
+                    <img src="amecc.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=AMECC';" alt="Logotipo da Associação Menores com Cristo" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Associação Menores com Cristo</h3>
                     <p class="text-gray-500 text-sm mt-2">Suporte a jovens e adolescentes.</p>
                 </div>
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="IFP.png" alt="Logotipo do Instituto Francisco Perez" class="partner-logo">
+                    <img src="IFP.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=IFP';" alt="Logotipo do Instituto Francisco Perez" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Instituto Francisco Perez</h3>
                     <p class="text-gray-500 text-sm mt-2">Parceria em iniciativas de desenvolvimento humano.</p>
                 </div>
                 <div class="institution-card p-6 bg-white rounded-xl shadow-md text-center hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="Religiosos.png" alt="Logotipo da Rede Paroquial e Vocacional" class="partner-logo">
+                    <img src="Religiosos.png" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffffff/000000?text=Rede+Paroquial';" alt="Logotipo da Rede Paroquial e Vocacional" class="partner-logo">
                     <h3 class="text-xl font-semibold text-gray-700">Rede Paroquial e Vocacional</h3>
                     <p class="text-gray-500 text-sm mt-2">Fortalecendo a evangelização e a formação.</p>
                 </div>
@@ -289,7 +335,7 @@
         <section class="mb-16">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Onde Atuamos - No Brasil</h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-6">
-                Presente em mais de 20 cidades brasileiras, com destaque para os estados do **RS, PA, MS, MA, PE, PB e BA**, a obra Calabriana chega aos mais diversos cantos do país.
+                Presente em mais de 20 cidades brasileiras, com destaque para os estados do <strong>RS, PA, MS, MA, PE, PB e BA</strong>, a obra Calabriana chega aos mais diversos cantos do país.
             </p>
             <div class="brazil-map-container">
                 <img src="mapa.png" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/333333?text=Mapa+do+Brasil';" alt="Mapa do Brasil destacando os estados de atuação da Congregação" class="brazil-map-image">
@@ -303,7 +349,7 @@
                 Todo esse trabalho é fruto da confiança total na Providência de Deus. As ações são possíveis graças ao apoio de convênios com o poder público, à parceria com empresas e, principalmente, à generosidade de inúmeros benfeitores — homens e mulheres que acreditam em um mundo mais justo, humano e fraterno.
             </p>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-6">
-                A Delegação também reafirma seu compromisso com a evangelização e o cuidado pastoral. Com 13 paróquias e diversas casas de formação, o anúncio do Evangelho é parte essencial da missão. Em 2024, dezenas de jovens passaram por processos de discernimento vocacional e retiros formativos em diferentes regiões do país.<
+                A Delegação também reafirma seu compromisso com a evangelização e o cuidado pastoral. Com 13 paróquias e diversas casas de formação, o anúncio do Evangelho é parte essencial da missão. Em 2024, dezenas de jovens passaram por processos de discernimento vocacional e retiros formativos em diferentes regiões do país.
             </p>
         </section>
 
@@ -324,7 +370,7 @@
         </div>
     </footer>
 
-    <!-- Script JavaScript para o carrossel -->
+    <!-- Script JavaScript para o carrossel e menu hambúrguer -->
     <script>
         let slideIndex = 0;
         let slideInterval; // Variável para armazenar o ID do intervalo
@@ -366,6 +412,23 @@
             slideIndex = n - 1; // Ajusta o índice do slide para ser baseado em 0 para a lógica de showSlides
             showSlides(); // Mostra o slide selecionado
         }
+
+        // Lógica para o menu hambúrguer
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            hamburgerButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active'); // Alterna a classe 'active' para mostrar/esconder o menu
+            });
+
+            // Esconde o menu móvel ao clicar em um link (para navegação suave)
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                });
+            });
+        });
 
         // Inicia o carrossel quando a janela é carregada
         window.onload = function() {
