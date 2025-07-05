@@ -189,18 +189,18 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            background-color: rgba(0, 0, 0, 0.05); /* Even more transparent */
             color: white;
-            padding: 10px 15px;
+            padding: 4px 8px; /* Further reduced padding */
             cursor: pointer;
             z-index: 10;
-            font-size: 1.5rem;
-            border-radius: 0.5rem; /* rounded-md */
+            font-size: 0.8rem; /* Further reduced font size */
+            border-radius: 0.25rem; /* rounded-md */
             transition: background-color 0.3s ease;
         }
 
         .banner-arrow:hover {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.2); /* Slightly more opaque on hover */
         }
 
         .banner-arrow.left {
@@ -240,7 +240,7 @@
     </header>
 
     <!-- News Banner Carousel Section (Now a hero section) -->
-    <section id="news-banner-carousel" class="w-full bg-gray-100 shadow-md"> <!-- Removed fixed, top, position:relative -->
+    <section id="news-banner-carousel" class="w-full bg-gray-100 shadow-md">
         <div class="carousel-container-banner mx-auto overflow-hidden">
             <div class="carousel-track-banner flex transition-transform duration-500 ease-in-out" id="carousel-track-banner">
                 <div class="carousel-slide-banner min-w-full flex-shrink-0">
