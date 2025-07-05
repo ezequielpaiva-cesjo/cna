@@ -14,7 +14,8 @@
             font-family: 'Inter', sans-serif;
             background-color: #f8f8f8; /* Light gray background */
             color: #333; /* Dark gray text */
-            padding-top: 80px; /* Add padding to body to prevent content from being hidden by fixed header */
+            /* Padding top adjusted to accommodate the fixed header and the fixed news banner */
+            padding-top: 210px; /* Approximately 110px (header max height) + 100px (banner height) */
         }
         .section-title {
             position: relative;
@@ -31,11 +32,11 @@
             background-color: #6b7280; /* Gray 500 for accent */
             border-radius: 9999px;
         }
-        /* Carousel specific styles */
+        /* Carousel specific styles for gallery */
         .carousel-container {
             position: relative;
             width: 100%;
-            max-width: 900px; /* Max width for the carousel */
+            max-width: 900px; /* Max width for the gallery carousel */
             margin: 0 auto;
             overflow: hidden;
             border-radius: 1rem; /* rounded-xl */
@@ -51,7 +52,7 @@
         }
         .carousel-slide img {
             width: 100%;
-            height: 400px; /* Fixed height for carousel images */
+            height: 400px; /* Fixed height for gallery carousel images */
             object-fit: cover;
             border-radius: 1rem; /* rounded-xl */
         }
@@ -74,6 +75,35 @@
             padding-top: 0.75rem; /* py-3 */
             padding-bottom: 0.75rem; /* py-3 */
             transition: padding 0.3s ease-in-out;
+        }
+
+        /* News Banner Carousel specific styles */
+        .carousel-container-banner {
+            width: 100%;
+            max-width: 1200px; /* Max width for the news banner */
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .carousel-track-banner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide-banner {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+        .carousel-slide-banner img {
+            width: 100%;
+            height: 100px; /* Fixed height for banner images */
+            object-fit: cover;
+        }
+        /* Hide scrollbar for banner carousel track */
+        .carousel-track-banner::-webkit-scrollbar {
+            display: none;
+        }
+        .carousel-track-banner {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
@@ -101,6 +131,23 @@
             <a href="#carousel" class="block text-white px-6 py-3 hover:bg-gray-900 transition duration-300">Galeria</a>
         </div>
     </header>
+
+    <!-- News Banner Carousel Section -->
+    <section id="news-banner-carousel" class="fixed w-full z-40 bg-gray-300 shadow-md" style="top: 110px;">
+        <div class="carousel-container-banner mx-auto overflow-hidden">
+            <div class="carousel-track-banner flex transition-transform duration-500 ease-in-out" id="carousel-track-banner">
+                <div class="carousel-slide-banner min-w-full flex-shrink-0">
+                    <img src="https://placehold.co/1200x100/E0E0E0/333333?text=Novidade+1:+Ofertas+Especiais!" alt="Novidade 1" class="w-full h-full object-cover">
+                </div>
+                <div class="carousel-slide-banner min-w-full flex-shrink-0">
+                    <img src="https://placehold.co/1200x100/D0D0D0/333333?text=Novidade+2:+Novos+Produtos+Chegando!" alt="Novidade 2" class="w-full h-full object-cover">
+                </div>
+                <div class="carousel-slide-banner min-w-full flex-shrink-0">
+                    <img src="https://placehold.co/1200x100/C0C0C0/333333?text=Novidade+3:+Frete+Grátis+Acima+de+R$150!" alt="Novidade 3" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Hero Section -->
     <section class="bg-white py-20 text-center shadow-inner">
@@ -296,7 +343,7 @@
         </div>
     </section>
 
-    <!-- Automatic Image Carousel Section -->
+    <!-- Automatic Image Carousel Section (Gallery) -->
     <section id="carousel" class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-12 section-title mx-auto">Nossa Galeria</h2>
@@ -379,7 +426,7 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Automatic Image Carousel Logic
+        // Automatic Image Carousel Logic (Gallery)
         const carouselTrack = document.getElementById('carousel-track');
         const carouselSlides = document.querySelectorAll('.carousel-slide');
         let currentSlide = 0;
@@ -394,21 +441,22 @@
         }
 
         function updateCarousel() {
-            const slideWidth = carouselSlides[0].clientWidth;
-            carouselTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+            if (carouselSlides.length > 0) {
+                const slideWidth = carouselSlides[0].clientWidth;
+                carouselTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+            }
         }
 
-        // Start the automatic carousel
+        // Start the automatic gallery carousel
         setInterval(nextSlide, slideInterval);
 
-        // Update carousel on window resize to maintain responsiveness
+        // Update gallery carousel on window resize to maintain responsiveness
         window.addEventListener('resize', updateCarousel);
 
-        // Initial update to set correct position
-        window.addEventListener('load', updateCarousel);
 
         // Fixed Header Logic
         const mainHeader = document.getElementById('main-header');
+        const newsBannerCarousel = document.getElementById('news-banner-carousel');
         const scrollThreshold = 50; // Pixels scrolled before header shrinks
 
         window.addEventListener('scroll', () => {
@@ -419,6 +467,41 @@
                 mainHeader.classList.remove('header-scrolled');
                 mainHeader.classList.add('header-initial');
             }
+            // Update banner position based on header height
+            const headerHeight = mainHeader.offsetHeight;
+            newsBannerCarousel.style.top = `${headerHeight}px`;
+        });
+
+        // News Banner Carousel Logic
+        const newsCarouselTrack = document.getElementById('carousel-track-banner');
+        const newsCarouselSlides = document.querySelectorAll('.carousel-slide-banner');
+        let currentNewsSlide = 0;
+        const newsSlideInterval = 4000; // 4 seconds for news banners
+
+        function nextNewsSlide() {
+            currentNewsSlide++;
+            if (currentNewsSlide >= newsCarouselSlides.length) {
+                currentNewsSlide = 0;
+            }
+            updateNewsCarousel();
+        }
+
+        function updateNewsCarousel() {
+            if (newsCarouselSlides.length > 0) {
+                const slideWidth = newsCarouselSlides[0].clientWidth;
+                newsCarouselTrack.style.transform = `translateX(-${currentNewsSlide * slideWidth}px)`;
+            }
+        }
+
+        // Start the automatic news carousel
+        setInterval(nextNewsSlide, newsSlideInterval);
+
+        // Initial positioning and carousel update on load
+        window.addEventListener('load', () => {
+            const headerHeight = mainHeader.offsetHeight;
+            newsBannerCarousel.style.top = `${headerHeight}px`;
+            updateCarousel(); // Initialize gallery carousel
+            updateNewsCarousel(); // Initialize news banner carousel
         });
     </script>
 </body>
