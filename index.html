@@ -14,7 +14,8 @@
             font-family: 'Inter', sans-serif;
             background-color: #f8f8f8; /* Light gray background */
             color: #333; /* Dark gray text */
-            /* padding-top will be set dynamically by JavaScript */
+            /* Padding top adjusted to accommodate the fixed header */
+            padding-top: 70px; /* Only header height */
         }
         .section-title {
             position: relative;
@@ -76,34 +77,6 @@
             transition: padding 0.3s ease-in-out;
         }
 
-        /* News Banner Carousel specific styles */
-        .carousel-container-banner {
-            width: 100%;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        .carousel-track-banner {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel-slide-banner {
-            min-width: 100%;
-            flex-shrink: 0;
-        }
-        .carousel-slide-banner img {
-            width: 100%;
-            height: 200px; /* Height for banner images */
-            object-fit: cover;
-        }
-        /* Hide scrollbar for banner carousel track */
-        .carousel-track-banner::-webkit-scrollbar {
-            display: none;
-        }
-        .carousel-track-banner {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
         /* Hamburger menu animation styles */
         .hamburger-icon {
             display: flex;
@@ -149,28 +122,93 @@
             opacity: 1;
         }
 
+        /* News Banner Carousel specific styles */
+        #news-banner-carousel {
+            position: relative; /* Changed from fixed */
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-container-banner {
+            width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative; /* Needed for absolute positioning of arrows */
+        }
+        .carousel-track-banner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide-banner {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+        .carousel-slide-banner img {
+            width: 100%;
+            height: 450px; /* Increased height for hero-like banner */
+            object-fit: cover;
+        }
+        /* Hide scrollbar for banner carousel track */
+        .carousel-track-banner::-webkit-scrollbar {
+            display: none;
+        }
+        .carousel-track-banner {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         /* Banner indicators styles */
         .banner-indicators {
             position: absolute; /* Position absolutely within the banner section */
-            bottom: 10px; /* Distance from the bottom of the banner */
+            bottom: 20px; /* Distance from the bottom of the banner */
             left: 50%;
             transform: translateX(-50%); /* Center horizontally */
             display: flex;
             justify-content: center;
+            z-index: 10; /* Ensure dots are above the image */
         }
 
         .banner-indicator-dot {
-            width: 10px;
-            height: 10px;
-            background-color: #ccc; /* Light gray for inactive dots */
+            width: 12px; /* Slightly larger dots */
+            height: 12px; /* Slightly larger dots */
+            background-color: rgba(255, 255, 255, 0.5); /* White with transparency */
             border-radius: 50%;
-            margin: 0 5px;
+            margin: 0 6px; /* Increased margin */
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.2); /* Subtle border */
         }
 
         .banner-indicator-dot.active {
-            background-color: #fcd34d; /* Yellow for active dot */
+            background-color: white; /* Solid white for active dot */
+            transform: scale(1.2); /* Slightly larger when active */
+        }
+
+        /* Banner Navigation Arrows */
+        .banner-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 1.5rem;
+            border-radius: 0.5rem; /* rounded-md */
+            transition: background-color 0.3s ease;
+        }
+
+        .banner-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .banner-arrow.left {
+            left: 10px;
+        }
+
+        .banner-arrow.right {
+            right: 10px;
         }
     </style>
 </head>
@@ -201,20 +239,23 @@
         </div>
     </header>
 
-    <!-- News Banner Carousel Section (Fixed at top, full-width) -->
-    <section id="news-banner-carousel" class="fixed w-full z-40 bg-gray-100 shadow-md" style="position: relative;">
-        <div class="mx-auto overflow-hidden">
+    <!-- News Banner Carousel Section (Now a hero section) -->
+    <section id="news-banner-carousel" class="w-full bg-gray-100 shadow-md"> <!-- Removed fixed, top, position:relative -->
+        <div class="carousel-container-banner mx-auto overflow-hidden">
             <div class="carousel-track-banner flex transition-transform duration-500 ease-in-out" id="carousel-track-banner">
                 <div class="carousel-slide-banner min-w-full flex-shrink-0">
-                    <img src="https://placehold.co/1920x200/E0E0E0/333333?text=Novidade+1:+Ofertas+Especiais!" alt="Novidade 1" class="w-full h-full object-cover">
+                    <img src="https://placehold.co/1920x450/E0E0E0/333333?text=Seu+Banner+1" alt="Banner 1" class="w-full h-full object-cover">
                 </div>
                 <div class="carousel-slide-banner min-w-full flex-shrink-0">
-                    <img src="https://placehold.co/1920x200/D0D0D0/333333?text=Novidade+2:+Novos+Produtos+Chegando!" alt="Novidade 2" class="w-full h-full object-cover">
+                    <img src="https://placehold.co/1920x450/D0D0D0/333333?text=Seu+Banner+2" alt="Banner 2" class="w-full h-full object-cover">
                 </div>
                 <div class="carousel-slide-banner min-w-full flex-shrink-0">
-                    <img src="https://placehold.co/1920x200/C0C0C0/333333?text=Novidade+3:+Frete+Grátis+Acima+de+R$150!" alt="Novidade 3" class="w-full h-full object-cover">
+                    <img src="https://placehold.co/1920x450/C0C0C0/333333?text=Seu+Banner+3" alt="Banner 3" class="w-full h-full object-cover">
                 </div>
             </div>
+            <!-- Banner Navigation Arrows -->
+            <button class="banner-arrow left" id="prev-banner"><i class="fas fa-chevron-left"></i></button>
+            <button class="banner-arrow right" id="next-banner"><i class="fas fa-chevron-right"></i></button>
         </div>
         <!-- Banner Indicators -->
         <div class="banner-indicators" id="banner-indicators">
@@ -533,22 +574,17 @@
         window.addEventListener('resize', updateCarousel);
 
 
-        // Fixed Header Logic
+        // Fixed Header Logic (Simplified as banner is no longer fixed)
         const mainHeader = document.getElementById('main-header');
-        const newsBannerCarousel = document.getElementById('news-banner-carousel');
-        const scrollThreshold = 50; // Pixels scrolled before header shrinks
         const body = document.body; // Get body element
 
-        function updateFixedElementPositions() {
-            const headerHeight = mainHeader.offsetHeight;
-            newsBannerCarousel.style.top = `${headerHeight}px`;
-
-            // Calculate total height of fixed elements
-            const totalFixedHeight = headerHeight + newsBannerCarousel.offsetHeight;
-            body.style.paddingTop = `${totalFixedHeight}px`;
+        // Function to update body padding-top based on header height
+        function updateBodyPadding() {
+            body.style.paddingTop = `${mainHeader.offsetHeight}px`;
         }
 
         window.addEventListener('scroll', () => {
+            const scrollThreshold = 50; // Pixels scrolled before header shrinks
             if (window.scrollY > scrollThreshold) {
                 mainHeader.classList.remove('header-initial');
                 mainHeader.classList.add('header-scrolled');
@@ -556,15 +592,18 @@
                 mainHeader.classList.remove('header-scrolled');
                 mainHeader.classList.add('header-initial');
             }
-            updateFixedElementPositions(); // Update positions and padding on scroll
+            updateBodyPadding(); // Update padding on scroll
         });
 
         // News Banner Carousel Logic
         const newsCarouselTrack = document.getElementById('carousel-track-banner');
         const newsCarouselSlides = document.querySelectorAll('.carousel-slide-banner');
         const newsBannerIndicators = document.getElementById('banner-indicators');
+        const prevBannerButton = document.getElementById('prev-banner'); // Get previous button
+        const nextBannerButton = document.getElementById('next-banner'); // Get next button
         let currentNewsSlide = 0;
         const newsSlideInterval = 4000; // 4 seconds for news banners
+        let newsAutoSlideInterval; // Variable to hold the interval ID
 
         function updateNewsIndicators() {
             // Remove active class from all dots
@@ -575,13 +614,29 @@
             newsBannerIndicators.children[currentNewsSlide].classList.add('active');
         }
 
+        function goToNewsSlide(index) {
+            currentNewsSlide = index;
+            updateNewsCarousel();
+            updateNewsIndicators();
+            resetNewsAutoSlide(); // Reset auto-slide timer on manual navigation
+        }
+
         function nextNewsSlide() {
             currentNewsSlide++;
             if (currentNewsSlide >= newsCarouselSlides.length) {
                 currentNewsSlide = 0;
             }
             updateNewsCarousel();
-            updateNewsIndicators(); // Update indicators on slide change
+            updateNewsIndicators();
+        }
+
+        function prevNewsSlide() {
+            currentNewsSlide--;
+            if (currentNewsSlide < 0) {
+                currentNewsSlide = newsCarouselSlides.length - 1;
+            }
+            updateNewsCarousel();
+            updateNewsIndicators();
         }
 
         function updateNewsCarousel() {
@@ -591,31 +646,44 @@
             }
         }
 
+        function startNewsAutoSlide() {
+            newsAutoSlideInterval = setInterval(nextNewsSlide, newsSlideInterval);
+        }
+
+        function resetNewsAutoSlide() {
+            clearInterval(newsAutoSlideInterval);
+            startNewsAutoSlide();
+        }
+
         // Add click listeners to indicators
         newsBannerIndicators.addEventListener('click', (event) => {
             if (event.target.classList.contains('banner-indicator-dot')) {
                 const index = Array.from(newsBannerIndicators.children).indexOf(event.target);
                 if (index !== -1) {
-                    currentNewsSlide = index;
-                    updateNewsCarousel();
-                    updateNewsIndicators();
+                    goToNewsSlide(index);
                 }
             }
         });
 
-        // Start the automatic news carousel
-        setInterval(nextNewsSlide, newsSlideInterval);
+        // Add click listeners to navigation arrows
+        prevBannerButton.addEventListener('click', prevNewsSlide);
+        nextBannerButton.addEventListener('click', nextNewsSlide);
 
         // Initial positioning and carousel update on load
         window.addEventListener('load', () => {
-            updateFixedElementPositions(); // Initialize positions and padding
+            updateBodyPadding(); // Initialize padding
             updateCarousel(); // Initialize gallery carousel
             updateNewsCarousel(); // Initialize news banner carousel
             updateNewsIndicators(); // Initialize banner indicators
+            startNewsAutoSlide(); // Start auto-slide
         });
 
         // Update positions on window resize
-        window.addEventListener('resize', updateFixedElementPositions);
+        window.addEventListener('resize', () => {
+            updateBodyPadding(); // Update padding on resize
+            updateCarousel(); // Update gallery carousel on resize
+            updateNewsCarousel(); // Update news banner carousel on resize
+        });
     </script>
 </body>
 </html>
