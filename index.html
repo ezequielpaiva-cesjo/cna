@@ -82,8 +82,7 @@
             width: 100%;
             margin: 0 auto;
             overflow: hidden;
-            border-radius: 1rem; /* Added rounded corners for the banner carousel */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Added shadow for the banner carousel */
+            /* Removed border-radius and box-shadow for full-width effect */
         }
         .carousel-track-banner {
             display: flex;
@@ -97,7 +96,7 @@
             width: 100%;
             height: 200px; /* Increased height for banner images */
             object-fit: cover;
-            border-radius: 1rem; /* Added rounded corners for banner images */
+            /* Removed border-radius for full-width effect */
         }
         /* Hide scrollbar for banner carousel track */
         .carousel-track-banner::-webkit-scrollbar {
@@ -194,20 +193,18 @@
         </div>
     </section>
 
-    <!-- News Banner Carousel Section (Moved and resized) -->
-    <section id="news-banner-carousel" class="py-8 bg-gray-100">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <div class="carousel-container-banner mx-auto overflow-hidden">
-                <div class="carousel-track-banner flex transition-transform duration-500 ease-in-out" id="carousel-track-banner">
-                    <div class="carousel-slide-banner min-w-full flex-shrink-0">
-                        <img src="https://placehold.co/1200x200/E0E0E0/333333?text=Novidade+1:+Ofertas+Especiais!" alt="Novidade 1" class="w-full h-full object-cover">
-                    </div>
-                    <div class="carousel-slide-banner min-w-full flex-shrink-0">
-                        <img src="https://placehold.co/1200x200/D0D0D0/333333?text=Novidade+2:+Novos+Produtos+Chegando!" alt="Novidade 2" class="w-full h-full object-cover">
-                    </div>
-                    <div class="carousel-slide-banner min-w-full flex-shrink-0">
-                        <img src="https://placehold.co/1200x200/C0C0C0/333333?text=Novidade+3:+Frete+Grátis+Acima+de+R$150!" alt="Novidade 3" class="w-full h-full object-cover">
-                    </div>
+    <!-- News Banner Carousel Section (Moved and now full-width) -->
+    <section id="news-banner-carousel" class="py-0 bg-gray-100"> <!-- Removed py-8 as the image will fill -->
+        <div class="mx-auto overflow-hidden"> <!-- Removed container, px-6, max-w-4xl -->
+            <div class="carousel-track-banner flex transition-transform duration-500 ease-in-out" id="carousel-track-banner">
+                <div class="carousel-slide-banner min-w-full flex-shrink-0">
+                    <img src="https://placehold.co/1920x200/E0E0E0/333333?text=Novidade+1:+Ofertas+Especiais!" alt="Novidade 1" class="w-full h-full object-cover">
+                </div>
+                <div class="carousel-slide-banner min-w-full flex-shrink-0">
+                    <img src="https://placehold.co/1920x200/D0D0D0/333333?text=Novidade+2:+Novos+Produtos+Chegando!" alt="Novidade 2" class="w-full h-full object-cover">
+                </div>
+                <div class="carousel-slide-banner min-w-full flex-shrink-0">
+                    <img src="https://placehold.co/1920x200/C0C0C0/333333?text=Novidade+3:+Frete+Grátis+Acima+de+R$150!" alt="Novidade 3" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
@@ -464,8 +461,8 @@
                 // Close mobile menu if open
                 const mobileMenu = document.getElementById('mobile-menu');
                 const hamburgerIcon = document.getElementById('hamburger-icon');
-                if (mobileMenu.classList.contains('open-menu')) { // Changed from 'hidden'
-                    mobileMenu.classList.remove('open-menu'); // Changed from 'hidden'
+                if (mobileMenu.classList.contains('open-menu')) {
+                    mobileMenu.classList.remove('open-menu');
                     hamburgerIcon.classList.remove('open');
                 }
             });
@@ -477,7 +474,7 @@
         const hamburgerIcon = document.getElementById('hamburger-icon');
 
         mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open-menu'); // Changed from 'hidden'
+            mobileMenu.classList.toggle('open-menu');
             hamburgerIcon.classList.toggle('open');
         });
 
