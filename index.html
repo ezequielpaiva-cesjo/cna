@@ -1,146 +1,180 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Transmissão ao Vivo</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f2f2f2;
-      color: #333;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Transmissão ao Vivo</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+        }
 
-    header {
-      background-color: #3f51b5;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-    }
+        header {
+            background-color: #3f51b5;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Changed from relative to fixed for better mobile menu positioning */
+            position: fixed; 
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensure header stays on top */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 1.5rem;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
 
-    nav {
-      display: flex;
-      gap: 1rem;
-    }
+        nav {
+            display: flex;
+            gap: 1rem;
+        }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-    }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0; /* Added padding for better click area */
+        }
 
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-    }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 0.5rem; /* Added padding for easier clicking */
+        }
 
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background-color: white;
-    }
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            transition: all 0.3s ease; /* Smooth transition for icon animation */
+        }
 
-    .mobile-menu {
-      display: none;
-      flex-direction: column;
-      background-color: #3f51b5;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100%;
-    }
+        .mobile-menu {
+            display: flex; /* Changed to flex for initial layout */
+            flex-direction: column;
+            background-color: #3f51b5;
+            position: fixed; /* Changed to fixed to cover content */
+            top: 60px; /* Adjust based on header height */
+            left: 0;
+            width: 100%;
+            max-height: 0; /* Start with 0 height for slide effect */
+            overflow: hidden; /* Hide content when height is 0 */
+            transition: max-height 0.3s ease-out; /* Smooth transition for slide effect */
+            z-index: 999; /* Below header but above other content */
+        }
 
-    .mobile-menu a {
-      padding: 1rem;
-      border-top: 1px solid rgba(255,255,255,0.2);
-    }
+        .mobile-menu a {
+            padding: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
 
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
+        .mobile-menu.show {
+            max-height: 300px; /* Max height when menu is open - adjust as needed */
+            /* This value should be large enough to contain all menu items */
+        }
 
-    .video-container {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 */
-      height: 0;
-      overflow: hidden;
-      border-radius: 8px;
-    }
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 80px; /* Adjust margin-top to account for fixed header */
+        }
 
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
 
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-      }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
-      .hamburger {
-        display: flex;
-      }
+        /* Hamburger icon animation when menu is open */
+        .hamburger.open div:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
 
-      .mobile-menu.show {
-        display: flex;
-      }
-    }
-  </style>
+        .hamburger.open div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open div:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>Minha Transmissão</h1>
-    <nav>
-      <a href="#">Início</a>
-      <a href="#">Sobre</a>
-      <a href="#">Contato</a>
-    </nav>
-    <div class="hamburger" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#">Início</a>
-      <a href="#">Sobre</a>
-      <a href="#">Contato</a>
-    </div>
-  </header>
+    <header>
+        <h1>Minha Transmissão</h1>
+        <nav>
+            <a href="#">Início</a>
+            <a href="#">Sobre</a>
+            <a href="#">Contato</a>
+        </nav>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#">Início</a>
+            <a href="#">Sobre</a>
+            <a href="#">Contato</a>
+        </div>
+    </header>
 
-  <main>
-    <h2>Assista ao Vivo</h2>
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/SeuVideoIDAqui" allowfullscreen></iframe>
-    </div>
-  </main>
+    <main>
+        <h2>Assista ao Vivo</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/SeuVideoIDAqui" allowfullscreen></iframe>
+        </div>
+    </main>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('show');
-    }
-  </script>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('show');
+            hamburger.classList.toggle('open'); // Toggle 'open' class for hamburger animation
+        }
+    </script>
 
 </body>
 </html>
